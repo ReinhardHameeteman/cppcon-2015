@@ -281,5 +281,43 @@ template<class T> auto foo( T const& x )
 \end{lstlisting}
 }
 
+\lstset{basicstyle=\tiny\ttfamily,frame=none,aboveskip=0bp,breaklines=true,belowskip=0bp,language=c++,showspaces=false, showstringspaces=false}\defverbatim[colored]\lstoperatorauto{%
+\begin{lstlisting}
+class product_expr
+{
+  public:
+  product_expr(const matrix& arg1, const matrix& arg2)
+  : arg1(arg1), arg2(arg2) {}
 
+  using auto= matrix;
 
+  private:
+  const matrix &arg1, &arg2;
+};
+\end{lstlisting}
+}
+
+\lstset{basicstyle=\tiny\ttfamily,frame=none,aboveskip=0bp,breaklines=true,belowskip=0bp,language=c++,showspaces=false, showstringspaces=false}\defverbatim[colored]\lstoperatorautouse{%
+\begin{lstlisting}
+matrix a,b;
+
+// store a matrix
+auto z = a*b;
+
+// store a product_expr
+explicit auto w = a*b;
+\end{lstlisting}
+}
+
+\lstset{basicstyle=\tiny\ttfamily,frame=none,aboveskip=0bp,breaklines=true,belowskip=0bp,language=c++,showspaces=false, showstringspaces=false}\defverbatim[colored]\lstfragment{%
+\begin{lstlisting}
+let a = .<(1 + 2)>.;;
+  -> val a : int code = .<(1 + 2)>.
+  
+let b = .< 3. * .~a>.;;
+  -> val b : double code = .<3. * (1 + 2)>.
+  
+let c = .!b;;
+  -> val c : double
+\end{lstlisting}
+}
