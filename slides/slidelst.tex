@@ -236,6 +236,38 @@ int main()
 \end{lstlisting}
 }
 
+
+
+\lstset{basicstyle=\tiny\ttfamily,frame=none,aboveskip=0bp,breaklines=true,belowskip=0bp,language=c++,showspaces=false, showstringspaces=false}\defverbatim[colored]\lstprotoevalcustom{%
+\begin{lstlisting}
+struct custom : boost::proto::callable
+{
+  using result_type = double;
+  
+  template<typename T, typename U>
+  result_type operator()(T const& t, U const& u) const
+  {
+     return (t+u)*100;
+  }
+};
+
+struct eval  : boost::proto::or_< when<terminal<_>,_value>
+                                , when< plus<eval,eval>, custom(eval(_left),eval(_right))>
+                                , otherwise< _default<eval> >
+                                >
+{};
+
+int main()
+{
+  terminal<int>::type x{2};
+
+  eval e;
+  std::cout << e(x+x*x+3) << "\n";
+}
+\end{lstlisting}
+}
+
+
 \lstset{basicstyle=\ttfamily,frame=none,aboveskip=0bp,breaklines=true,belowskip=0bp,language=c++,showspaces=false, showstringspaces=false}\defverbatim[colored]\lstautoissue{%
 \begin{lstlisting}
 array x(10),y(10);
